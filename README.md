@@ -701,3 +701,42 @@ The documentation is available here: [documentation](https://pypsa-earth.readthe
 	<tbody>
 </table>
 <!-- readme: collaborators,contributors,restyled-commits/- -end -->
+
+---
+
+## PyPSA-Ghana 🇬🇭
+
+This fork is configured and adapted for **Ghana's energy system** 
+by an independent Ghanaian energy researcher.
+
+### About this adaptation
+This repository extends PyPSA-Earth to model Ghana's electricity 
+system with a focus on:
+
+- 🌞 Solar PV potential using ERA5 + atlite land eligibility analysis
+- 💨 Wind energy potential with Ghana-specific exclusion constraints
+- 💧 Hydropower representation (Akosombo, Bui, Kpong etc)
+- ⚡ GRIDCo transmission network validation
+- 📊 Demand calibration against Energy Commission of Ghana data
+- and much more!
+
+### Country configuration
+```yaml
+countries: ["GH"]
+```
+
+### Author
+ENGR. KWAKU DUAH 
+BSc Petroleum Engineering | MSc Energy & Sustainable Management  
+📍 Accra, Ghana  
+🔗 LinkedIn: https://www.linkedin.com/in/kwaku-duah-262543202/ 
+🐙 GitHub: https://github.com/kwaku-duah/pypsa-ghana/
+
+### Status
+🔧 Under active development — contributions and feedback welcome
+
+### Acknowledgements
+Built on the outstanding work of the 
+[PyPSA meets Earth](https://pypsa-meets-earth.github.io) initiative. 
+All core framework credits belong to the original authors and 
+contributors listed above.
