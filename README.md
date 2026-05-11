@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 # PyPSA-Earth. A Flexible Python-based Open Optimisation Model to Study Energy System Futures around the World.
-
+GHANA SECTION IN ACTIVE DEVELOPMENT MY ENGR KWAKU DUAH
 <p align="left">
 by
 <a href="https://pypsa-meets-earth.github.io">
