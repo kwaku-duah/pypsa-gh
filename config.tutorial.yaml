@@ -6,12 +6,12 @@ version: 0.8.0
 tutorial: true
 
 
-countries: ["NG", "BJ"]
+countries: ["GH"]
 
 enable:
-  retrieve_databundle: true
-  retrieve_databundle_sector: true
-  retrieve_cutout: true
+  retrieve_databundle: false
+  retrieve_databundle_sector: false
+  retrieve_cutout: false
   build_natura_raster: true
   progress_bar: false
 
