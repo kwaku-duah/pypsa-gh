@@ -1,0 +1,39 @@
+,id,Type,Region,refs,tags.generator:method,power_output_MW,tags.generator:source,tags.generator:type,tags.power,other_tags,geometry,Country
+10,7715010108,node,GH,NULL,combustion,126.0,gas,gas_turbine,generator,"{'tags.frequency': '50', 'tags.operator': 'VRA', 'tags.start_date': '2008', 'tags.generator:plant': 'output', 'tags.name': 'TTPS1'}",POINT (0.0129068 5.673979899999988),GH
+11,7715010109,node,GH,NULL,combustion,126.0,gas,gas_turbine,generator,"{'tags.frequency': '50', 'tags.operator': 'CENIT Energy Limited', 'tags.start_date': '2012', 'tags.generator:plant': 'output', 'tags.name': 'TTPS2'}",POINT (0.0122818 5.674508399999988),GH
+12,7715010110,node,GH,NULL,combustion,180.0,gas,combined_cycle,generator,NULL,POINT (0.0460213 5.679998299999988),GH
+13,7715010111,node,GH,NULL,combustion,180.0,gas,combined_cycle,generator,NULL,POINT (0.046311 5.679597899999988),GH
+14,7715010112,node,GH,NULL,combustion,100.0,gas,combined_cycle,generator,NULL,POINT (0.0473973 5.680137),GH
+15,7715010113,node,GH,NULL,combustion,100.0,gas,combined_cycle,generator,NULL,POINT (0.0471022 5.680569499999987),GH
+16,7715010114,node,GH,NULL,combustion,110.0,gas;oil,gas_turbine,generator,NULL,POINT (0.009326 5.734788399999988),GH
+17,7715010115,node,GH,NULL,combustion,110.0,gas;oil,gas_turbine,generator,NULL,POINT (0.0092496 5.734470799999988),GH
+18,7715010132,node,GH,NULL,combustion,330.0,oil,combined_cycle,generator,"{'tags.operator': 'Volta River Authority', 'tags.name': 'Takoradi 2'}",POINT (-1.6598314 4.971912199999989),GH
+19,7715010133,node,GH,NULL,combustion,132.0,oil,combined_cycle,generator,"{'tags.operator': 'Volta River Authority', 'tags.name': 'Takoradi 3'}",POINT (-1.6580719 4.974814099999989),GH
+20,7715010134,node,GH,NULL,combustion,330.0,oil,combined_cycle,generator,"{'tags.operator': 'Volta River Authority', 'tags.name': 'Takoradi 1'}",POINT (-1.6583777 4.971981699999989),GH
+28,11584318313,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6960349 4.9378567),GH
+29,11584318314,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6965857 4.9384341),GH
+30,11584318315,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6964756 4.9383229),GH
+31,11584318316,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6962456 4.9380821),GH
+32,11584318317,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.696091 4.9379128),GH
+33,11584318318,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6963101 4.9381444),GH
+34,11584318319,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6961449 4.9379728),GH
+35,11584318320,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6962004 4.9380352),GH
+36,11584318321,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6965212 4.9383718),GH
+37,11584318322,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6963661 4.9382005),GH
+38,11584318323,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.69642 4.9382605),GH
+39,11584318324,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6970783 4.9389597),GH
+40,11584318325,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6966956 4.9385503),GH
+41,11584318326,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6967943 4.9386643),GH
+42,11584318327,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6967512 4.9386126),GH
+43,11584318328,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6968588 4.9387266),GH
+44,11584318329,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6969148 4.9387827),GH
+45,11584318330,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6969687 4.9388427),GH
+46,11584318331,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6970243 4.9389051),GH
+47,11584318332,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6966417 4.9384902),GH
+48,11584318333,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6971989 4.9390781),GH
+49,11584318334,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6971428 4.939022),GH
+50,11584318335,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6972528 4.9391381),GH
+51,11584318336,node,GH,NULL,combustion,20.0,gas,combined_cycle,generator,"{'tags.start_date': '2019', 'tags.generator:plant': 'output'}",POINT (-1.6973083 4.9392005),GH
+52,11584327366,node,GH,NULL,combustion,200.0,gas,combined_cycle,generator,{'tags.generator:plant': 'output'},POINT (-1.666258 4.9682568),GH
+53,11585311292,node,GH,NULL,combustion,100.0,gas,combined_cycle,generator,NULL,POINT (0.0477138 5.680342599999989),GH
+54,11585311293,node,GH,NULL,combustion,100.0,gas,combined_cycle,generator,NULL,POINT (0.0474134 5.680767),GH
