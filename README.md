@@ -4,7 +4,7 @@ SPDX-FileCopyrightText:  PyPSA-Earth and PyPSA-Eur Authors
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
-# PyPSA-GH 🇬🇭 — Open Energy System Model for Ghana
+# PyPSA-GH 🇬🇭 - Open Energy System Model for Ghana
 
 <p align="left">
 by <strong> Engr. Kwaku Duah</strong><br>
@@ -14,7 +14,7 @@ BSc Petroleum Engineering | MSc Energy & Sustainable Management<br>
 <a href="https://www.linkedin.com/in/kwaku-duah-262543202/">LinkedIn</a>
 </p>
 
-## Development Status: **Active — Day One** 🔧
+## Development Status: ** ACTIVE ** 🔧
 
 ---
 
@@ -33,13 +33,13 @@ working on Ghana's energy transition.
 
 ## What This Model Covers
 
-- ⚡ **Full electricity grid** — built from OpenStreetMap via GRIDCo network data
-- ☀️ **Solar PV potential** — land eligibility analysis using atlite + ERA5 weather data
-- 💨 **Wind energy potential** — capacity factor time series for Ghana
+- ⚡ **Full electricity grid** - built from OpenStreetMap via GRIDCo network data
+- ☀️ **Solar PV potential** - land eligibility analysis using atlite + ERA5 weather data
+- 💨 **Wind energy potential** - capacity factor time series for Ghana
 - 💧 **Hydropower** — Akosombo, Bui, and Kpong reservoir modelling
-- 🗺️ **Land eligibility** — exclusion of protected areas, urban zones, steep terrain
-- 🔌 **Transmission network optimisation** — north-south corridor analysis
-- 🌍 **Net zero pathways** — scenario analysis for Ghana's energy transition
+- 🗺️ **Land eligibility** - exclusion of protected areas, urban zones, steep terrain
+- 🔌 **Transmission network optimisation** - north-south corridor analysis
+- 🌍 **Net zero pathways** - scenario analysis for Ghana's energy transition
 
 ---
 
@@ -47,8 +47,8 @@ working on Ghana's energy transition.
 
 | Output | Status |
 |---|---|
-| Ghana administrative shapes — 16 regions with population and GDP | ✅ Built |
-| Ghana power grid — 114 substations, 99 transmission lines, 10 cables | ✅ Built |
+| Ghana administrative shapes - 16 regions with population and GDP | ✅ Built |
+| Ghana power grid - 114 substations, 99 transmission lines, 10 cables | ✅ Built |
 | ERA5 weather data configured for Ghana (2013 reference year) | ✅ Ready |
 | Offshore EEZ boundaries defined | ✅ Built |
 | WorldPop population data integrated | ✅ Built |
@@ -57,12 +57,12 @@ working on Ghana's energy transition.
 
 ## Roadmap
 
-- [ ] Land eligibility analysis — solar and wind exclusion zones
+- [ ] Land eligibility analysis - solar and wind exclusion zones
 - [ ] Renewable capacity factor time series (ERA5 + atlite)
 - [ ] Validation against Energy Commission of Ghana statistics
-- [ ] Capacity expansion optimisation — where to build solar and wind
+- [ ] Capacity expansion optimisation - where to build solar and wind
 - [ ] Green hydrogen potential assessment
-- [ ] Publish results — targeting *Energies* or *Energy Reports*
+- [ ] Publish results - targeting *Energies* or *Energy Reports*
 
 ---
 
@@ -121,7 +121,7 @@ snakemake -call build_shapes --rerun-triggers mtime
 snakemake -call build_osm_network --rerun-triggers mtime
 ```
 
-### Windows
+### Windows OS
 ```bash
 # Clone the repo
 git clone https://github.com/kwaku-duah/pypsa-gh.git
