@@ -4,6 +4,184 @@ SPDX-FileCopyrightText:  PyPSA-Earth and PyPSA-Eur Authors
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
+# PyPSA-GH 🇬🇭 — Open Energy System Model for Ghana
+
+<p align="left">
+by <strong> Engr. Kwaku Duah</strong><br>
+BSc Petroleum Engineering | MSc Energy & Sustainable Management<br>
+📍 Accra, Ghana<br>
+🔗 <a href="https://github.com/kwaku-duah">GitHub</a> |
+<a href="https://www.linkedin.com/in/kwaku-duah-262543202/">LinkedIn</a>
+</p>
+
+## Development Status: **Active — Day One** 🔧
+
+---
+
+## PyPSA-GH: High-Resolution Open Energy System Model of Ghana
+
+PyPSA-GH is the **first open-source energy system model dedicated entirely to Ghana**, 
+built on the [PyPSA-Earth](https://github.com/pypsa-meets-earth/pypsa-earth) framework. 
+It models Ghana's electricity system with high spatial and temporal resolution, covering 
+renewable energy potential, transmission network topology, hydropower, and grid optimisation.
+
+The model is built entirely from open data using a Snakemake workflow and is fully 
+reproducible. It is designed to support energy planners, researchers, and policymakers 
+working on Ghana's energy transition.
+
+---
+
+## What This Model Covers
+
+- ⚡ **Full electricity grid** — built from OpenStreetMap via GRIDCo network data
+- ☀️ **Solar PV potential** — land eligibility analysis using atlite + ERA5 weather data
+- 💨 **Wind energy potential** — capacity factor time series for Ghana
+- 💧 **Hydropower** — Akosombo, Bui, and Kpong reservoir modelling
+- 🗺️ **Land eligibility** — exclusion of protected areas, urban zones, steep terrain
+- 🔌 **Transmission network optimisation** — north-south corridor analysis
+- 🌍 **Net zero pathways** — scenario analysis for Ghana's energy transition
+
+---
+
+## Day One Results ✅
+
+| Output | Status |
+|---|---|
+| Ghana administrative shapes — 16 regions with population and GDP | ✅ Built |
+| Ghana power grid — 114 substations, 99 transmission lines, 10 cables | ✅ Built |
+| ERA5 weather data configured for Ghana (2013 reference year) | ✅ Ready |
+| Offshore EEZ boundaries defined | ✅ Built |
+| WorldPop population data integrated | ✅ Built |
+
+---
+
+## Roadmap
+
+- [ ] Land eligibility analysis — solar and wind exclusion zones
+- [ ] Renewable capacity factor time series (ERA5 + atlite)
+- [ ] Validation against Energy Commission of Ghana statistics
+- [ ] Capacity expansion optimisation — where to build solar and wind
+- [ ] Green hydrogen potential assessment
+- [ ] Publish results — targeting *Energies* or *Energy Reports*
+
+---
+
+## Country Configuration
+
+```yaml
+countries: ["GH"]  # Ghana
+```
+
+---
+
+## Getting Started
+
+### Linux
+```bash
+# Clone the repo
+git clone https://github.com/kwaku-duah/pypsa-gh.git
+cd pypsa-gh
+
+# Create conda environment
+mamba env create -f envs/linux-64.lock.yaml
+conda activate pypsa-earth
+
+# Run Ghana model
+snakemake -call build_shapes --rerun-triggers mtime
+snakemake -call build_osm_network --rerun-triggers mtime
+```
+
+### macOS (Apple Silicon — M1/M2/M3)
+```bash
+# Clone the repo
+git clone https://github.com/kwaku-duah/pypsa-gh.git
+cd pypsa-gh
+
+# Create conda environment
+mamba env create -f envs/osx-arm64.lock.yaml
+conda activate pypsa-earth
+
+# Run Ghana model
+snakemake -call build_shapes --rerun-triggers mtime
+snakemake -call build_osm_network --rerun-triggers mtime
+```
+
+### macOS (Intel)
+```bash
+# Clone the repo
+git clone https://github.com/kwaku-duah/pypsa-gh.git
+cd pypsa-gh
+
+# Create conda environment
+mamba env create -f envs/osx-64.lock.yaml
+conda activate pypsa-earth
+
+# Run Ghana model
+snakemake -call build_shapes --rerun-triggers mtime
+snakemake -call build_osm_network --rerun-triggers mtime
+```
+
+### Windows
+```bash
+# Clone the repo
+git clone https://github.com/kwaku-duah/pypsa-gh.git
+cd pypsa-gh
+
+# Create conda environment
+mamba env create -f envs/win-64.lock.yaml
+conda activate pypsa-earth
+
+# Run Ghana model
+snakemake -call build_shapes --rerun-triggers mtime
+snakemake -call build_osm_network --rerun-triggers mtime
+```
+
+> **Note:** On all platforms, [Miniforge](https://github.com/conda-forge/miniforge) 
+> is recommended for installing mamba/conda. 
+> See [installation guide](https://pypsa-earth.readthedocs.io/en/latest/) for details.
+
+---
+
+## Data Sources
+
+| Data | Source |
+|---|---|
+| Weather data | ERA5 via Copernicus (2013) |
+| Power grid | OpenStreetMap + GRIDCo |
+| Land cover | ESA Copernicus Global Land |
+| Protected areas | WDPA via ProtectedPlanet |
+| Population | WorldPop 2020 |
+| Elevation | GEBCO 2025 |
+| Energy statistics | IRENA 2025 |
+| Administrative boundaries | GADM v4.1 |
+
+---
+
+## Author
+
+**Engr. Kwaku Duah**
+Independent Energy Researcher | Accra, Ghana 🇬🇭
+
+BSc Petroleum Engineering
+MSc Energy & Sustainable Management
+
+Building the first open Ghana energy model to support evidence-based 
+energy planning and Ghana's net zero transition.
+
+👉 Follow the journey on [LinkedIn](https://www.linkedin.com/in/kwaku-duah-262543202/)
+👉 Star the repo to stay updated ⭐
+
+---
+
+## Acknowledgements
+
+PyPSA-GH is built on the outstanding work of the 
+[PyPSA meets Earth](https://pypsa-meets-earth.github.io) initiative.
+All core framework credits belong to the original authors and contributors 
+listed below.
+
+---
+
 # PyPSA-Earth. A Flexible Python-based Open Optimisation Model to Study Energy System Futures around the World.
 GHANA SECTION IN ACTIVE DEVELOPMENT MY ENGR KWAKU DUAH
 <p align="left">
