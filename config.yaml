@@ -1,0 +1,72 @@
+# SPDX-FileCopyrightText:  PyPSA-Earth and PyPSA-Eur Authors
+#
+# SPDX-License-Identifier: CC0-1.0
+
+version: 0.8.0
+tutorial: true
+
+
+countries: ["GH"]
+
+enable:
+  retrieve_databundle: false
+  retrieve_databundle_sector: false
+  retrieve_cutout: false
+  build_natura_raster: false
+  progress_bar: false
+
+scenario:
+  clusters: [6]
+  opts: [4H]
+  planning_horizons: [2030]
+
+snapshots:
+  start: "2013-01-01"
+  end: "2013-12-31"
+
+
+clean_osm_data_options:
+  threshold_voltage: 35000
+
+base_network:
+  min_voltage_substation_offshore: 35000
+  min_voltage_rebase_voltage: 35000
+
+
+electricity:
+  co2limit: 1.487e+9
+  co2base: 1.487e+9
+  automatic_emission: true 
+  extendable_carriers:
+    Generator: []
+    StorageUnit: []
+    Store: []
+    Link: []
+
+atlite:
+  default: cutout-2013-era5-ghana
+  cutouts:
+    cutout-2013-era5-ghana:
+      module: era5
+      x: [-4.0, 2.0]
+      y: [4.0, 12.0]
+      dx: 0.25
+      dy: 0.25
+      time: ["2013", "2013"]
+
+renewable:
+  hydro:
+    hydrobasins_level: 4
+    hydro_max_hours: "energy_capacity_totals_by_country"
+
+
+solving:
+  solver:
+    name: highs
+    # options: glpk-default (replaced with highs for speed)
+
+cluster_options:
+  algorithm: hac
+  feature: solar+onwind-time
+  aggregation_zones: country
+  alternative_clustering: false
