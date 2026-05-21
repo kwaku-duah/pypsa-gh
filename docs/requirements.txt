@@ -1,0 +1,8 @@
+sphinx
+pydata-sphinx-theme
+nbsphinx
+ipykernel
+pypsa
+pandas
+matplotlib
+numpy

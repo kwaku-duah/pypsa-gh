@@ -1,0 +1,1490 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Ghana Baseline Power System &#8212; PyPSA-GH</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=38b66d78"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/1-network';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="One Week Tutorial Model" href="2-demand.html" />
+    <link rel="prev" title="Tutorials" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">PyPSA-GH</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/kwaku-duah/pypsa-gh" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/kwaku-duah/pypsa-gh" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Ghana Baseline Power System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2-demand.html">One Week Tutorial Model</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Tutorials</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Ghana Baseline Power System</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="Ghana-Baseline-Power-System">
+<h1>Ghana Baseline Power System<a class="headerlink" href="#Ghana-Baseline-Power-System" title="Link to this heading">#</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pypsa</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">pypsa</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="s2">&quot;/data/PyPSA-GH/results/networks/elec_s_6_ec_lcopt_4H.nc&quot;</span><span class="p">)</span>
+<span class="c1"># CORRECT</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Network loaded - Least-cost optimisation network (lcopt, 2030 costs)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:pypsa.io:Imported network elec_s_6_ec_lcopt_4H.nc has buses, carriers, generators, lines, links, loads, storage_units, stores
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Network loaded - Least-cost optimisation network (lcopt, 2030 costs)
+</pre></div></div>
+</div>
+<p>Evaluating the scale of the model</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Snapshots: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">snapshots</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Buses: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">buses</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lines: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">lines</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generators: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">generators</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Storage: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">storage_units</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n</span><span class="se">\n</span><span class="s2">Date range: </span><span class="si">{</span><span class="n">n</span><span class="o">.</span><span class="n">snapshots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> ---&gt; </span><span class="si">{</span><span class="n">n</span><span class="o">.</span><span class="n">snapshots</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Snapshots: 2184
+Buses: 21
+Lines: 6
+Generators: 45
+Storage: 2
+n
+Date range: 2013-01-01 00:00:00 ---&gt; 2013-12-30 20:00:00
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;==== BUSES === &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">buses</span><span class="p">[[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;carrier&quot;</span><span class="p">,</span> <span class="s2">&quot;country&quot;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+==== BUSES ===
+                      x          y  carrier country
+Bus
+GH0 0         -0.321650   5.583410       AC      GH
+GH0 1         -2.115422   7.835856       AC      GH
+GH0 2         -1.702414   5.208771       AC      GH
+GH0 3         -1.490211  10.311944       AC      GH
+GH0 4         -1.507208   6.443125       AC      GH
+GH0 5         -0.026917   6.174417       AC      GH
+GH1 0          0.400500   7.099950       AC      GH
+GH0 0 H2      -0.321650   5.583410       H2      GH
+GH0 1 H2      -2.115422   7.835856       H2      GH
+GH0 2 H2      -1.702414   5.208771       H2      GH
+GH0 3 H2      -1.490211  10.311944       H2      GH
+GH0 4 H2      -1.507208   6.443125       H2      GH
+GH0 5 H2      -0.026917   6.174417       H2      GH
+GH1 0 H2       0.400500   7.099950       H2      GH
+GH0 0 battery -0.321650   5.583410  battery      GH
+GH0 1 battery -2.115422   7.835856  battery      GH
+GH0 2 battery -1.702414   5.208771  battery      GH
+GH0 3 battery -1.490211  10.311944  battery      GH
+GH0 4 battery -1.507208   6.443125  battery      GH
+GH0 5 battery -0.026917   6.174417  battery      GH
+GH1 0 battery  0.400500   7.099950  battery      GH
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generators, what power plants exis</span>
+<span class="c1">#p_nom = installed capacity (MW)</span>
+<span class="c1">#carrier = fuel type</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== GENERATORS===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">generators</span><span class="p">[[</span><span class="s2">&quot;bus&quot;</span><span class="p">,</span> <span class="s2">&quot;carrier&quot;</span><span class="p">,</span> <span class="s2">&quot;p_nom&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;carrier&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+=== GENERATORS===
+                                       bus        carrier        p_nom
+Generator
+GH0 0 CCGT                           GH0 0           CCGT  1817.154566
+GH0 2 CCGT                           GH0 2           CCGT  1765.000000
+GH0 1 load shedding                  GH0 1  load shedding   494.723303
+GH0 2 load shedding                  GH0 2  load shedding   379.691709
+GH0 3 load shedding                  GH0 3  load shedding   588.588334
+GH0 4 load shedding                  GH0 4  load shedding   915.966821
+GH0 5 load shedding                  GH0 5  load shedding   288.536125
+GH1 0 load shedding                  GH1 0  load shedding   289.162972
+GH0 0 H2 load shedding            GH0 0 H2  load shedding     0.000000
+GH0 1 H2 load shedding            GH0 1 H2  load shedding     0.000000
+GH0 2 H2 load shedding            GH0 2 H2  load shedding     0.000000
+GH0 3 H2 load shedding            GH0 3 H2  load shedding     0.000000
+GH0 4 H2 load shedding            GH0 4 H2  load shedding     0.000000
+GH0 5 H2 load shedding            GH0 5 H2  load shedding     0.000000
+GH1 0 H2 load shedding            GH1 0 H2  load shedding     0.000000
+GH0 0 battery load shedding  GH0 0 battery  load shedding     0.000000
+GH0 1 battery load shedding  GH0 1 battery  load shedding     0.000000
+GH0 2 battery load shedding  GH0 2 battery  load shedding     0.000000
+GH0 3 battery load shedding  GH0 3 battery  load shedding     0.000000
+GH0 4 battery load shedding  GH0 4 battery  load shedding     0.000000
+GH0 0 load shedding                  GH0 0  load shedding   637.672566
+GH0 5 battery load shedding  GH0 5 battery  load shedding     0.000000
+GH1 0 battery load shedding  GH1 0 battery  load shedding     0.000000
+GH0 0 offwind-ac                     GH0 0     offwind-ac     0.000000
+GH0 5 offwind-ac                     GH0 5     offwind-ac     0.000000
+GH0 2 offwind-ac                     GH0 2     offwind-ac     0.000000
+GH0 5 offwind-dc                     GH0 5     offwind-dc     0.000000
+GH0 0 offwind-dc                     GH0 0     offwind-dc     0.000000
+GH0 2 offwind-dc                     GH0 2     offwind-dc     0.000000
+GH0 2 oil                            GH0 2            oil   509.484522
+GH0 0 oil                            GH0 0            oil   370.000000
+GH0 0 onwind                         GH0 0         onwind     0.002697
+GH0 1 onwind                         GH0 1         onwind     0.003596
+GH1 0 onwind                         GH1 0         onwind     0.000899
+GH0 2 onwind                         GH0 2         onwind     0.003596
+GH0 3 onwind                         GH0 3         onwind     0.003371
+GH0 4 onwind                         GH0 4         onwind     0.003820
+GH0 5 onwind                         GH0 5         onwind     0.002022
+GH0 2 solar                          GH0 2          solar     0.000000
+GH0 1 solar                          GH0 1          solar   253.200000
+GH0 0 solar                          GH0 0          solar    61.800000
+GH0 3 solar                          GH0 3          solar   227.400000
+GH0 4 solar                          GH0 4          solar     6.400000
+GH0 5 solar                          GH0 5          solar     0.000000
+GH1 0 solar                          GH1 0          solar     0.000000
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== LINES (GRIDCO TRANSMISSION )===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">lines</span><span class="p">[[</span><span class="s2">&quot;bus0&quot;</span><span class="p">,</span> <span class="s2">&quot;bus1&quot;</span><span class="p">,</span> <span class="s2">&quot;s_nom&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+=== LINES (GRIDCO TRANSMISSION )===
+       bus0   bus1        s_nom      length
+Line
+0     GH0 0  GH0 2  1465.730675  198.035282
+1     GH0 0  GH0 5  1259.053713   91.698372
+2     GH0 1  GH0 3   359.729632  354.695885
+3     GH0 1  GH0 4  1465.730675  210.972482
+4     GH0 2  GH0 4  1465.730675  173.677566
+5     GH0 4  GH0 5   359.729632  207.887422
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cell 6 — Define bus labels (we derived these from coordinates)</span>
+<span class="n">bus_names</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;GH0 0&quot;</span><span class="p">:</span> <span class="s2">&quot;Accra&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH0 1&quot;</span><span class="p">:</span> <span class="s2">&quot;Kumasi&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH0 2&quot;</span><span class="p">:</span> <span class="s2">&quot;Takoradi&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH0 3&quot;</span><span class="p">:</span> <span class="s2">&quot;Tamale&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH0 4&quot;</span><span class="p">:</span> <span class="s2">&quot;Obuasi/ Mining belt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH0 5&quot;</span><span class="p">:</span> <span class="s2">&quot;Tema&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH1 0&quot;</span><span class="p">:</span> <span class="s2">&quot;Akosombo&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cell 7 — Installed capacity by carrier (MW)</span>
+<span class="c1"># Filter only real generators (drop load shedding, zero-capacity wind)</span>
+
+<span class="n">real_carriers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CCGT&quot;</span><span class="p">,</span> <span class="s2">&quot;oil&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;solar&quot;</span><span class="p">,</span> <span class="s2">&quot;onwind&quot;</span><span class="p">]</span>
+
+<span class="n">gen</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">gen_real</span> <span class="o">=</span> <span class="n">gen</span><span class="p">[</span><span class="n">gen</span><span class="p">[</span><span class="s2">&quot;carrier&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">real_carriers</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Also pull hydro from storage_units (PyPSA stores hydro there sometimes)</span>
+<span class="n">stor</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">storage_units</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Storage unit carriers:&quot;</span><span class="p">,</span> <span class="n">stor</span><span class="p">[</span><span class="s2">&quot;carrier&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stor</span><span class="p">[[</span><span class="s2">&quot;bus&quot;</span><span class="p">,</span> <span class="s2">&quot;carrier&quot;</span><span class="p">,</span> <span class="s2">&quot;p_nom&quot;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Storage unit carriers: [&#39;hydro&#39;]
+               bus carrier   p_nom
+StorageUnit
+GH0 1 hydro  GH0 1   hydro   404.0
+GH0 5 hydro  GH0 5   hydro  1180.0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cell 8 — Aggregate installed capacity by carrier</span>
+
+<span class="n">cap_gen</span> <span class="o">=</span> <span class="n">gen_real</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;carrier&quot;</span><span class="p">)[</span><span class="s2">&quot;p_nom&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># Add storage hydro if present</span>
+<span class="n">hydro_stor</span> <span class="o">=</span> <span class="n">stor</span><span class="p">[</span><span class="n">stor</span><span class="p">[</span><span class="s2">&quot;carrier&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;hydro|ror|reservoir&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">hydro_stor</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="n">hydro_mw</span> <span class="o">=</span> <span class="n">hydro_stor</span><span class="p">[</span><span class="s2">&quot;p_nom&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">cap_gen</span><span class="p">[</span><span class="s2">&quot;hydro (storage)&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hydro_mw</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== INSTALLED CAPACITY BY CARRIER (MW) ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cap_gen</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TOTAL: </span><span class="si">{</span><span class="n">cap_gen</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+=== INSTALLED CAPACITY BY CARRIER (MW) ===
+carrier
+CCGT               3582.2
+hydro (storage)    1584.0
+oil                 879.5
+solar               548.8
+onwind                0.0
+Name: p_nom, dtype: float64
+
+TOTAL: 6594 MW
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cell 9 — Validation Reference: IRENA 2024 + Energy Commission Ghana 2025</span>
+<span class="c1"># Sources:</span>
+<span class="c1">#   IRENA Renewable Capacity Statistics 2026 H1 (C-ELECCAP file, Ghana, 2024)</span>
+<span class="c1">#   Energy Commission Ghana, &quot;2025 Energy Outlook for Ghana&quot;, Table 1 (Dec 2024)</span>
+
+<span class="c1"># ── CAPACITY (MW) ─────────────────────────────────────────────────────</span>
+<span class="n">ref_capacity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;IRENA_2024_MW&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;Hydro&quot;</span><span class="p">:</span>       <span class="mf">1584.05</span><span class="p">,</span>
+        <span class="s2">&quot;Natural Gas&quot;</span><span class="p">:</span> <span class="mf">3743.50</span><span class="p">,</span>
+        <span class="s2">&quot;Oil&quot;</span><span class="p">:</span>          <span class="mf">370.00</span><span class="p">,</span>
+        <span class="s2">&quot;Solar PV&quot;</span><span class="p">:</span>     <span class="mf">173.36</span><span class="p">,</span>
+        <span class="s2">&quot;Wind&quot;</span><span class="p">:</span>           <span class="mf">0.02</span><span class="p">,</span>
+        <span class="s2">&quot;Bioenergy&quot;</span><span class="p">:</span>      <span class="mf">0.10</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;EC_2024_MW&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;Hydro&quot;</span><span class="p">:</span>       <span class="mf">1584.00</span><span class="p">,</span>   <span class="c1"># Akosombo 1020 + Bui 404 + Kpong 160</span>
+        <span class="s2">&quot;Natural Gas&quot;</span><span class="p">:</span> <span class="mf">3676.00</span><span class="p">,</span>   <span class="c1"># all gas thermal plants (excl. embedded)</span>
+        <span class="s2">&quot;Oil&quot;</span><span class="p">:</span>          <span class="mf">370.00</span><span class="p">,</span>   <span class="c1"># AKSA plant</span>
+        <span class="s2">&quot;Solar PV&quot;</span><span class="p">:</span>     <span class="mf">132.00</span><span class="p">,</span>   <span class="c1"># grid-connected solar only</span>
+        <span class="s2">&quot;Wind&quot;</span><span class="p">:</span>           <span class="mf">0.00</span><span class="p">,</span>
+        <span class="s2">&quot;Bioenergy&quot;</span><span class="p">:</span>      <span class="mf">0.10</span><span class="p">,</span>   <span class="c1"># Safisana biogas</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+<span class="n">ref_capacity</span><span class="p">[</span><span class="s2">&quot;Diff_%&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="n">ref_capacity</span><span class="p">[</span><span class="s2">&quot;IRENA_2024_MW&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">ref_capacity</span><span class="p">[</span><span class="s2">&quot;EC_2024_MW&quot;</span><span class="p">])</span>
+    <span class="o">/</span> <span class="n">ref_capacity</span><span class="p">[</span><span class="s2">&quot;EC_2024_MW&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== CAPACITY VALIDATION (MW) ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ref_capacity</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># ── GENERATION MIX (GWh) — EC 2025 projections (primary) ──────────────</span>
+<span class="n">ref_generation</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;EC_2025_proj_GWh&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;Hydro&quot;</span><span class="p">:</span>    <span class="mi">8561</span><span class="p">,</span>    <span class="c1"># Akosombo 6205 + Kpong 1095 + Bui 1261</span>
+        <span class="s2">&quot;Thermal&quot;</span><span class="p">:</span> <span class="mi">16997</span><span class="p">,</span>    <span class="c1"># all gas+oil thermal</span>
+        <span class="s2">&quot;Solar/RE&quot;</span><span class="p">:</span>  <span class="mi">196</span><span class="p">,</span>    <span class="c1"># solar PV + biogas</span>
+        <span class="s2">&quot;Import&quot;</span><span class="p">:</span>     <span class="mi">82</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;IRENA_2023_GWh&quot;</span><span class="p">:</span> <span class="p">{</span>      <span class="c1"># latest available from IRENA</span>
+        <span class="s2">&quot;Hydro&quot;</span><span class="p">:</span>    <span class="mi">8193</span><span class="p">,</span>
+        <span class="s2">&quot;Thermal&quot;</span><span class="p">:</span> <span class="mi">14930</span><span class="p">,</span>
+        <span class="s2">&quot;Solar/RE&quot;</span><span class="p">:</span>  <span class="mi">239</span><span class="p">,</span>
+        <span class="s2">&quot;Import&quot;</span><span class="p">:</span>      <span class="mi">0</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+<span class="n">ref_generation</span><span class="p">[</span><span class="s2">&quot;EC_share_%&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ref_generation</span><span class="p">[</span><span class="s2">&quot;EC_2025_proj_GWh&quot;</span><span class="p">]</span>
+    <span class="o">/</span> <span class="n">ref_generation</span><span class="p">[</span><span class="s2">&quot;EC_2025_proj_GWh&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== GENERATION MIX REFERENCE ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ref_generation</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">EC 2025 target: Hydro 33.1% | Thermal 65.8% | RE 0.8%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+=== CAPACITY VALIDATION (MW) ===
+             IRENA_2024_MW  EC_2024_MW  Diff_%
+Hydro               1584.0      1584.0     0.0
+Natural Gas         3743.5      3676.0     1.8
+Oil                  370.0       370.0     0.0
+Solar PV             173.4       132.0    31.3
+Wind                   0.0         0.0     inf
+Bioenergy              0.1         0.1     0.0
+
+=== GENERATION MIX REFERENCE ===
+          EC_2025_proj_GWh  IRENA_2023_GWh  EC_share_%
+Hydro                 8561            8193        33.1
+Thermal              16997           14930        65.8
+Solar/RE               196             239         0.8
+Import                  82               0         0.3
+
+EC 2025 target: Hydro 33.1% | Thermal 65.8% | RE 0.8%
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cell 10 — Plot: Capacity comparison IRENA vs EC</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">techs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;Natural Gas&quot;</span><span class="p">,</span> <span class="s2">&quot;Oil&quot;</span><span class="p">,</span> <span class="s2">&quot;Solar PV&quot;</span><span class="p">]</span>
+<span class="n">irena_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">ref_capacity</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;IRENA_2024_MW&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">techs</span><span class="p">]</span>
+<span class="n">ec_vals</span>    <span class="o">=</span> <span class="p">[</span><span class="n">ref_capacity</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;EC_2024_MW&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">techs</span><span class="p">]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">techs</span><span class="p">))</span>
+<span class="n">w</span> <span class="o">=</span> <span class="mf">0.35</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">irena_vals</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;IRENA 2024&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#1976D2&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">ec_vals</span><span class="p">,</span>    <span class="n">w</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;EC Ghana 2024&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#388E3C&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">techs</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Installed Capacity (MW)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Capacity Validation: IRENA 2024 vs Energy Commission Ghana 2024&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;fig1_capacity_validation.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_1-network_12_0.png" src="../_images/tutorials_1-network_12_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># STEP 3A — Extract model capacity by carrier</span>
+<span class="c1"># This is what PyPSA-GH actually has installed</span>
+<span class="c1"># ============================================================</span>
+
+<span class="c1"># Pull generators (exclude load shedding — those are slack variables, not real plants)</span>
+<span class="n">gen</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">gen_real</span> <span class="o">=</span> <span class="n">gen</span><span class="p">[</span><span class="o">~</span><span class="n">gen</span><span class="p">[</span><span class="s2">&quot;carrier&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;load shedding&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Pull storage units — hydro reservoirs live here in PyPSA-Earth</span>
+<span class="n">stor</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">storage_units</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Storage carriers:&quot;</span><span class="p">,</span> <span class="n">stor</span><span class="p">[</span><span class="s2">&quot;carrier&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stor</span><span class="p">[[</span><span class="s2">&quot;bus&quot;</span><span class="p">,</span> <span class="s2">&quot;carrier&quot;</span><span class="p">,</span> <span class="s2">&quot;p_nom&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Storage carriers: [&#39;hydro&#39;]
+               bus carrier   p_nom
+StorageUnit
+GH0 1 hydro  GH0 1   hydro   404.0
+GH0 5 hydro  GH0 5   hydro  1180.0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># STEP 3B — Aggregate model capacity by carrier</span>
+<span class="c1"># ============================================================</span>
+
+<span class="c1"># Generators (CCGT, oil, solar, onwind etc.)</span>
+<span class="n">model_cap_gen</span> <span class="o">=</span> <span class="n">gen_real</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;carrier&quot;</span><span class="p">)[</span><span class="s2">&quot;p_nom&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># Storage (hydro, PHS etc.)</span>
+<span class="n">model_cap_stor</span> <span class="o">=</span> <span class="n">stor</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;carrier&quot;</span><span class="p">)[</span><span class="s2">&quot;p_nom&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># Combine</span>
+<span class="n">model_capacity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">model_cap_gen</span><span class="p">,</span> <span class="n">model_cap_stor</span><span class="p">])</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">model_capacity</span> <span class="o">=</span> <span class="n">model_capacity</span><span class="p">[</span><span class="n">model_capacity</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== MODEL INSTALLED CAPACITY (MW) ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_capacity</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Model Total: </span><span class="si">{</span><span class="n">model_capacity</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EC Reference Total (excl embedded): 5,260 MW&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+=== MODEL INSTALLED CAPACITY (MW) ===
+carrier
+CCGT     3582.2
+hydro    1584.0
+oil       879.5
+solar     548.8
+Name: p_nom, dtype: float64
+
+Model Total: 6594 MW
+EC Reference Total (excl embedded): 5,260 MW
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># STEP 3C — Side-by-side comparison table</span>
+<span class="c1"># Map model carriers → validation categories</span>
+<span class="c1"># ============================================================</span>
+
+<span class="c1"># Adjust these keys based on what Step 3B prints</span>
+<span class="n">carrier_map</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;CCGT&quot;</span><span class="p">:</span>          <span class="s2">&quot;Gas Thermal&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gas&quot;</span><span class="p">:</span>           <span class="s2">&quot;Gas Thermal&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;oil&quot;</span><span class="p">:</span>           <span class="s2">&quot;Oil Thermal&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;hydro&quot;</span><span class="p">:</span>         <span class="s2">&quot;Hydro&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ror&quot;</span><span class="p">:</span>           <span class="s2">&quot;Hydro&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;solar&quot;</span><span class="p">:</span>         <span class="s2">&quot;Solar PV&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;onwind&quot;</span><span class="p">:</span>        <span class="s2">&quot;Wind&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;offwind-ac&quot;</span><span class="p">:</span>    <span class="s2">&quot;Wind&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;offwind-dc&quot;</span><span class="p">:</span>    <span class="s2">&quot;Wind&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;biomass&quot;</span><span class="p">:</span>       <span class="s2">&quot;Bioenergy&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">model_cap_mapped</span> <span class="o">=</span> <span class="n">model_capacity</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">model_cap_mapped</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">carrier_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">model_cap_mapped</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+<span class="n">model_cap_mapped</span> <span class="o">=</span> <span class="n">model_cap_mapped</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># Reference values (IRENA 2024 + EC 2024 — confirmed numbers)</span>
+<span class="n">reference</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+    <span class="s2">&quot;Gas Thermal&quot;</span><span class="p">:</span> <span class="mf">3743.5</span><span class="p">,</span>   <span class="c1"># IRENA 2024 Natural Gas OnGrid</span>
+    <span class="s2">&quot;Oil Thermal&quot;</span><span class="p">:</span>  <span class="mf">370.0</span><span class="p">,</span>   <span class="c1"># IRENA 2024 Oil OnGrid (AKSA)</span>
+    <span class="s2">&quot;Hydro&quot;</span><span class="p">:</span>       <span class="mf">1584.0</span><span class="p">,</span>   <span class="c1"># IRENA 2024 = EC exact match</span>
+    <span class="s2">&quot;Solar PV&quot;</span><span class="p">:</span>     <span class="mf">173.4</span><span class="p">,</span>   <span class="c1"># IRENA 2024 OnGrid</span>
+    <span class="s2">&quot;Wind&quot;</span><span class="p">:</span>           <span class="mf">0.0</span><span class="p">,</span>
+    <span class="s2">&quot;Bioenergy&quot;</span><span class="p">:</span>      <span class="mf">0.1</span><span class="p">,</span>
+<span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;IRENA/EC Reference (MW)&quot;</span><span class="p">)</span>
+
+<span class="n">comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Model (MW)&quot;</span><span class="p">:</span>     <span class="n">model_cap_mapped</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="s2">&quot;Reference (MW)&quot;</span><span class="p">:</span> <span class="n">reference</span><span class="p">,</span>
+<span class="p">})</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">comparison</span><span class="p">[</span><span class="s2">&quot;Diff (MW)&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">comparison</span><span class="p">[</span><span class="s2">&quot;Model (MW)&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">comparison</span><span class="p">[</span><span class="s2">&quot;Reference (MW)&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">comparison</span><span class="p">[</span><span class="s2">&quot;Diff (%)&quot;</span><span class="p">]</span>  <span class="o">=</span> <span class="p">(</span><span class="n">comparison</span><span class="p">[</span><span class="s2">&quot;Diff (MW)&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">comparison</span><span class="p">[</span><span class="s2">&quot;Reference (MW)&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== VALIDATION 1: CAPACITY ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">comparison</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+=== VALIDATION 1: CAPACITY ===
+             Model (MW)  Reference (MW)  Diff (MW)  Diff (%)
+Bioenergy           0.0             0.1       -0.1    -100.0
+Gas Thermal      3582.2          3743.5     -161.3      -4.3
+Hydro            1584.0          1584.0        0.0       0.0
+Oil Thermal       879.5           370.0      509.5     137.7
+Solar PV          548.8           173.4      375.4     216.5
+Wind                0.0             0.0        0.0       0.0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># STEP 3D — Capacity validation bar chart</span>
+<span class="c1"># ============================================================</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">cats</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Gas Thermal&quot;</span><span class="p">,</span> <span class="s2">&quot;Oil Thermal&quot;</span><span class="p">,</span> <span class="s2">&quot;Hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;Solar PV&quot;</span><span class="p">]</span>
+<span class="n">model_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">comparison</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c</span><span class="p">,</span> <span class="s2">&quot;Model (MW)&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">comparison</span><span class="o">.</span><span class="n">index</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cats</span><span class="p">]</span>
+<span class="n">ref_vals</span>   <span class="o">=</span> <span class="p">[</span><span class="n">comparison</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c</span><span class="p">,</span> <span class="s2">&quot;Reference (MW)&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">comparison</span><span class="o">.</span><span class="n">index</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cats</span><span class="p">]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cats</span><span class="p">))</span>
+<span class="n">w</span> <span class="o">=</span> <span class="mf">0.35</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">bars1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">model_vals</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;PyPSA-GH Model&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#1565C0&quot;</span><span class="p">)</span>
+<span class="n">bars2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">ref_vals</span><span class="p">,</span>   <span class="n">w</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;IRENA 2024 / EC 2024&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#2E7D32&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+
+<span class="c1"># Add value labels on bars</span>
+<span class="k">for</span> <span class="n">bar</span> <span class="ow">in</span> <span class="n">bars1</span> <span class="o">+</span> <span class="n">bars2</span><span class="p">:</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">h</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">h</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">cats</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Installed Capacity (MW)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Validation 1 — Installed Capacity: PyPSA-GH vs IRENA/EC Reference</span><span class="se">\n</span><span class="s2">&quot;</span>
+             <span class="s2">&quot;Sources: IRENA Capacity Statistics 2026 H1 | EC Ghana Energy Outlook 2025&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;fig1_capacity_validation.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_1-network_16_0.png" src="../_images/tutorials_1-network_16_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># STEP 3E — Generation mix (dispatch) validation</span>
+<span class="c1"># CORRECT</span>
+<span class="c1"># How does the least-cost 2030 optimised dispatch compare to Ghana&#39;s observed 2024 mix?</span>
+<span class="c1"># Get total dispatch from model results</span>
+<span class="c1"># generators_t.p = actual dispatch time series (MW at each snapshot)</span>
+<span class="n">gen_dispatch</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">generators_t</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Remove load shedding columns</span>
+<span class="n">real_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">gen_dispatch</span><span class="o">.</span><span class="n">columns</span>
+             <span class="k">if</span> <span class="s2">&quot;load shedding&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+<span class="n">gen_dispatch</span> <span class="o">=</span> <span class="n">gen_dispatch</span><span class="p">[</span><span class="n">real_cols</span><span class="p">]</span>
+
+<span class="c1"># Map to carriers</span>
+<span class="n">col_carrier</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">real_cols</span><span class="p">,</span> <span class="s2">&quot;carrier&quot;</span><span class="p">]</span>
+<span class="n">gen_by_carrier</span> <span class="o">=</span> <span class="n">gen_dispatch</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">col_carrier</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Also get storage dispatch (hydro)</span>
+<span class="n">stor_dispatch</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">storage_units_t</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">stor_carrier</span>  <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">storage_units</span><span class="p">[</span><span class="s2">&quot;carrier&quot;</span><span class="p">]</span>
+<span class="n">stor_by_carrier</span> <span class="o">=</span> <span class="n">stor_dispatch</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">stor_carrier</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generator carriers dispatched:&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">gen_by_carrier</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Storage carriers dispatched:&quot;</span><span class="p">,</span>   <span class="nb">list</span><span class="p">(</span><span class="n">stor_by_carrier</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Generator carriers dispatched: [&#39;CCGT&#39;, &#39;offwind-ac&#39;, &#39;offwind-dc&#39;, &#39;oil&#39;, &#39;onwind&#39;, &#39;solar&#39;]
+Storage carriers dispatched: [&#39;hydro&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># STEP 3F — Annual generation totals (GWh) + mix %</span>
+<span class="c1"># ============================================================</span>
+
+<span class="c1"># Each snapshot = 4H, so multiply MW by 4 to get MWh, divide by 1000 for GWh</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># hours per snapshot</span>
+
+<span class="n">gen_gwh</span>  <span class="o">=</span> <span class="p">(</span><span class="n">gen_by_carrier</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">stor_gwh</span> <span class="o">=</span> <span class="p">(</span><span class="n">stor_by_carrier</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">stor_gwh</span> <span class="o">=</span> <span class="n">stor_gwh</span><span class="p">[</span><span class="n">stor_gwh</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># keep only positive dispatch</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== MODEL ANNUAL GENERATION (GWh) ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generators:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gen_gwh</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Storage (hydro etc.):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stor_gwh</span><span class="p">)</span>
+
+<span class="n">total_gwh</span> <span class="o">=</span> <span class="n">gen_gwh</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">stor_gwh</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Model Total: </span><span class="si">{</span><span class="n">total_gwh</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> GWh&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EC 2025 Reference Total: 25,836 GWh&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+=== MODEL ANNUAL GENERATION (GWh) ===
+Generators:
+carrier
+solar         8166.8
+CCGT          3415.6
+offwind-ac       0.0
+offwind-dc       0.0
+oil              0.0
+onwind           0.0
+dtype: float64
+
+Storage (hydro etc.):
+carrier
+hydro    8103.4
+dtype: float64
+
+Model Total: 19686 GWh
+EC 2025 Reference Total: 25,836 GWh
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># STEP 3G — Generation mix pie: Model vs EC 2025 reference</span>
+<span class="c1"># ============================================================</span>
+
+<span class="c1"># Aggregate model into Hydro / Thermal / Solar+RE</span>
+<span class="n">hydro_carriers</span>   <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;ror&quot;</span><span class="p">,</span> <span class="s2">&quot;PHS&quot;</span><span class="p">]</span>
+<span class="n">thermal_carriers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CCGT&quot;</span><span class="p">,</span> <span class="s2">&quot;gas&quot;</span><span class="p">,</span> <span class="s2">&quot;oil&quot;</span><span class="p">,</span> <span class="s2">&quot;OCGT&quot;</span><span class="p">]</span>
+<span class="n">solar_carriers</span>   <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;solar&quot;</span><span class="p">,</span> <span class="s2">&quot;onwind&quot;</span><span class="p">,</span> <span class="s2">&quot;offwind-ac&quot;</span><span class="p">,</span> <span class="s2">&quot;offwind-dc&quot;</span><span class="p">,</span> <span class="s2">&quot;biomass&quot;</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sum_carriers</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">carriers</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">carriers</span><span class="p">)</span>
+
+<span class="n">all_gwh</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">gen_gwh</span><span class="p">,</span> <span class="n">stor_gwh</span><span class="p">])</span>
+<span class="n">model_mix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+    <span class="s2">&quot;Hydro&quot;</span><span class="p">:</span>    <span class="n">sum_carriers</span><span class="p">(</span><span class="n">all_gwh</span><span class="p">,</span> <span class="n">hydro_carriers</span><span class="p">),</span>
+    <span class="s2">&quot;Thermal&quot;</span><span class="p">:</span>  <span class="n">sum_carriers</span><span class="p">(</span><span class="n">all_gwh</span><span class="p">,</span> <span class="n">thermal_carriers</span><span class="p">),</span>
+    <span class="s2">&quot;Solar/RE&quot;</span><span class="p">:</span> <span class="n">sum_carriers</span><span class="p">(</span><span class="n">all_gwh</span><span class="p">,</span> <span class="n">solar_carriers</span><span class="p">),</span>
+<span class="p">})</span>
+<span class="n">model_mix_pct</span> <span class="o">=</span> <span class="p">(</span><span class="n">model_mix</span> <span class="o">/</span> <span class="n">model_mix</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ec_mix_pct</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+    <span class="s2">&quot;Hydro&quot;</span><span class="p">:</span>    <span class="mf">33.1</span><span class="p">,</span>
+    <span class="s2">&quot;Thermal&quot;</span><span class="p">:</span>  <span class="mf">65.8</span><span class="p">,</span>
+    <span class="s2">&quot;Solar/RE&quot;</span><span class="p">:</span>  <span class="mf">0.8</span><span class="p">,</span>
+<span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;EC 2025 (%)&quot;</span><span class="p">)</span>
+
+<span class="n">irena_mix_pct</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+    <span class="s2">&quot;Hydro&quot;</span><span class="p">:</span>    <span class="mf">35.1</span><span class="p">,</span>
+    <span class="s2">&quot;Thermal&quot;</span><span class="p">:</span>  <span class="mf">63.9</span><span class="p">,</span>
+    <span class="s2">&quot;Solar/RE&quot;</span><span class="p">:</span>  <span class="mf">1.0</span><span class="p">,</span>
+<span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;IRENA 2023 (%)&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== VALIDATION 2: GENERATION MIX ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Model (%)&quot;</span><span class="p">:</span>    <span class="n">model_mix_pct</span><span class="p">,</span>
+    <span class="s2">&quot;EC 2025 (%)&quot;</span><span class="p">:</span>  <span class="n">ec_mix_pct</span><span class="p">,</span>
+    <span class="s2">&quot;IRENA 2023 (%)&quot;</span><span class="p">:</span> <span class="n">irena_mix_pct</span><span class="p">,</span>
+<span class="p">}))</span>
+
+<span class="c1"># Pie charts side by side</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#1976D2&quot;</span><span class="p">,</span> <span class="s2">&quot;#E53935&quot;</span><span class="p">,</span> <span class="s2">&quot;#43A047&quot;</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;Thermal&quot;</span><span class="p">,</span> <span class="s2">&quot;Solar/RE&quot;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">model_mix_pct</span><span class="p">,</span> <span class="n">ec_mix_pct</span><span class="p">,</span> <span class="n">irena_mix_pct</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;PyPSA-GH Model&quot;</span><span class="p">,</span> <span class="s2">&quot;EC Ghana 2025&quot;</span><span class="p">,</span> <span class="s2">&quot;IRENA 2023&quot;</span><span class="p">]):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%1.1f%%</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span>
+           <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">textprops</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+<span class="c1"># CORRECT — change suptitle to:</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
+    <span class="s2">&quot;Generation Mix: PyPSA-GH Least-Cost 2030 vs Ghana Observed (EC/IRENA)</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Sources: IRENA 2025 H2 | EC Ghana Energy Outlook 2025&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;fig2_generation_mix.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+=== VALIDATION 2: GENERATION MIX ===
+          Model (%)  EC 2025 (%)  IRENA 2023 (%)
+Hydro          41.2         33.1            35.1
+Thermal        17.4         65.8            63.9
+Solar/RE       41.5          0.8             1.0
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_1-network_19_1.png" src="../_images/tutorials_1-network_19_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># STEP 3H — NETWORK MAP (Validation 3)</span>
+<span class="c1"># Buses, transmission lines, generators on Ghana geography</span>
+<span class="c1"># ============================================================</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpatches</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.lines</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mlines</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Bus name mapping from coordinates (confirmed earlier)</span>
+<span class="n">bus_names</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;GH0 0&quot;</span><span class="p">:</span> <span class="s2">&quot;Accra&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH0 1&quot;</span><span class="p">:</span> <span class="s2">&quot;Kumasi&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH0 2&quot;</span><span class="p">:</span> <span class="s2">&quot;Takoradi&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH0 3&quot;</span><span class="p">:</span> <span class="s2">&quot;Tamale&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH0 4&quot;</span><span class="p">:</span> <span class="s2">&quot;Obuasi/Mining belt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH0 5&quot;</span><span class="p">:</span> <span class="s2">&quot;Tema&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GH1 0&quot;</span><span class="p">:</span> <span class="s2">&quot;Akosombo&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Carrier colors for generator dots</span>
+<span class="n">carrier_colors</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;CCGT&quot;</span><span class="p">:</span>   <span class="s2">&quot;#E53935&quot;</span><span class="p">,</span>   <span class="c1"># red = gas</span>
+    <span class="s2">&quot;gas&quot;</span><span class="p">:</span>    <span class="s2">&quot;#E53935&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;oil&quot;</span><span class="p">:</span>    <span class="s2">&quot;#FF6F00&quot;</span><span class="p">,</span>   <span class="c1"># orange = oil</span>
+    <span class="s2">&quot;hydro&quot;</span><span class="p">:</span>  <span class="s2">&quot;#1976D2&quot;</span><span class="p">,</span>   <span class="c1"># blue = hydro</span>
+    <span class="s2">&quot;ror&quot;</span><span class="p">:</span>    <span class="s2">&quot;#1976D2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;solar&quot;</span><span class="p">:</span>  <span class="s2">&quot;#FDD835&quot;</span><span class="p">,</span>   <span class="c1"># yellow = solar</span>
+    <span class="s2">&quot;onwind&quot;</span><span class="p">:</span> <span class="s2">&quot;#43A047&quot;</span><span class="p">,</span>   <span class="c1"># green = wind</span>
+<span class="p">}</span>
+
+<span class="n">ac_buses</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">buses</span><span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">buses</span><span class="p">[</span><span class="s2">&quot;carrier&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;AC&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">ac_buses</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ac_buses</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">bus_names</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;#EEF2F7&quot;</span><span class="p">)</span>
+
+<span class="c1"># ── Transmission lines ───────────────────────────────────────</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">n</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">b0</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">buses</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="s2">&quot;bus0&quot;</span><span class="p">]]</span>
+        <span class="n">b1</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">buses</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="s2">&quot;bus1&quot;</span><span class="p">]]</span>
+        <span class="n">lw</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="s2">&quot;s_nom&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">400</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">b0</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">b1</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]],</span> <span class="p">[</span><span class="n">b0</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">b1</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]],</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#546E7A&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="c1"># Also draw links (HVDC or cross-border)</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">n</span><span class="o">.</span><span class="n">links</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">b0</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">buses</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">link</span><span class="p">[</span><span class="s2">&quot;bus0&quot;</span><span class="p">]]</span>
+        <span class="n">b1</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">buses</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">link</span><span class="p">[</span><span class="s2">&quot;bus1&quot;</span><span class="p">]]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">b0</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">b1</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]],</span> <span class="p">[</span><span class="n">b0</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">b1</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]],</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#AB47BC&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+                <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="c1"># ── Generator bubbles (sized by p_nom) ───────────────────────</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">gen_row</span> <span class="ow">in</span> <span class="n">n</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s2">&quot;load shedding&quot;</span> <span class="ow">in</span> <span class="n">gen_row</span><span class="p">[</span><span class="s2">&quot;carrier&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="k">continue</span>
+    <span class="k">if</span> <span class="n">gen_row</span><span class="p">[</span><span class="s2">&quot;p_nom&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">bus</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">buses</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">gen_row</span><span class="p">[</span><span class="s2">&quot;bus&quot;</span><span class="p">]]</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">carrier_colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">gen_row</span><span class="p">[</span><span class="s2">&quot;carrier&quot;</span><span class="p">],</span> <span class="s2">&quot;#90A4AE&quot;</span><span class="p">)</span>
+        <span class="n">size</span>  <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">gen_row</span><span class="p">[</span><span class="s2">&quot;p_nom&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">12</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">bus</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">bus</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+                   <span class="n">alpha</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="c1"># ── Bus nodes ────────────────────────────────────────────────</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ac_buses</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">ac_buses</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#212121&quot;</span><span class="p">,</span>
+           <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+
+<span class="c1"># ── Bus labels ───────────────────────────────────────────────</span>
+<span class="n">offsets</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Accra&quot;</span><span class="p">:</span>     <span class="p">(</span> <span class="mi">6</span><span class="p">,</span>  <span class="mi">4</span><span class="p">),</span> <span class="s2">&quot;Kumasi&quot;</span><span class="p">:</span>   <span class="p">(</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span>  <span class="mi">4</span><span class="p">),</span>
+    <span class="s2">&quot;Takoradi&quot;</span><span class="p">:</span>  <span class="p">(</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">),</span> <span class="s2">&quot;Tamale&quot;</span><span class="p">:</span>   <span class="p">(</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">4</span><span class="p">),</span>
+    <span class="s2">&quot;Obuasi&quot;</span><span class="p">:</span>    <span class="p">(</span> <span class="mi">6</span><span class="p">,</span>  <span class="mi">4</span><span class="p">),</span> <span class="s2">&quot;Tema&quot;</span><span class="p">:</span>     <span class="p">(</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">),</span>
+    <span class="s2">&quot;Akosombo&quot;</span><span class="p">:</span>  <span class="p">(</span> <span class="mi">6</span><span class="p">,</span>  <span class="mi">4</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">ac_buses</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span>
+    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">offsets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]),</span>
+                <span class="n">textcoords</span><span class="o">=</span><span class="s2">&quot;offset points&quot;</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">),</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#212121&quot;</span><span class="p">)</span>
+
+<span class="c1"># ── Legend ───────────────────────────────────────────────────</span>
+<span class="n">legend_items</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#E53935&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Gas (CCGT)&quot;</span><span class="p">),</span>
+    <span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#FF6F00&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Oil&quot;</span><span class="p">),</span>
+    <span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#1976D2&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Hydro&quot;</span><span class="p">),</span>
+    <span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#FDD835&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Solar PV&quot;</span><span class="p">),</span>
+    <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],[],</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#546E7A&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;AC Transmission&quot;</span><span class="p">),</span>
+    <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],[],</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#AB47BC&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                  <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Link/HVDC&quot;</span><span class="p">),</span>
+    <span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#212121&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Bus node&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_items</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower left&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+          <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Legend&quot;</span><span class="p">,</span> <span class="n">title_fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Validation 3 — PyPSA-GH Network Topology</span><span class="se">\n</span><span class="s2">&quot;</span>
+             <span class="s2">&quot;6-node Ghana grid | Bubble size ∝ installed capacity&quot;</span><span class="p">,</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Longitude&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Latitude&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;fig3_network_map.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_1-network_20_0.png" src="../_images/tutorials_1-network_20_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># STEP 3I — Load profile at each bus (demand shape)</span>
+<span class="c1"># Confirms load is correctly distributed across Ghana&#39;s nodes</span>
+<span class="c1"># ============================================================</span>
+
+<span class="n">load_t</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">loads_t</span><span class="o">.</span><span class="n">p_set</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">load_static</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">loads</span><span class="p">[[</span><span class="s2">&quot;bus&quot;</span><span class="p">,</span> <span class="s2">&quot;carrier&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Map bus → city name</span>
+<span class="n">load_static</span><span class="p">[</span><span class="s2">&quot;city&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">load_static</span><span class="p">[</span><span class="s2">&quot;bus&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">bus_names</span><span class="p">)</span>
+
+<span class="c1"># Annual energy demand per bus (GWh)</span>
+<span class="n">load_annual</span> <span class="o">=</span> <span class="p">(</span><span class="n">load_t</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>  <span class="c1"># 4H resolution → GWh</span>
+<span class="n">load_annual</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Annual Load (GWh)&quot;</span>
+
+<span class="n">load_summary</span> <span class="o">=</span> <span class="n">load_static</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">load_summary</span><span class="p">[</span><span class="s2">&quot;Annual_GWh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">load_summary</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">load_annual</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== LOAD BY BUS (GWh/year) ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">load_summary</span><span class="p">[[</span><span class="s2">&quot;city&quot;</span><span class="p">,</span><span class="s2">&quot;bus&quot;</span><span class="p">,</span><span class="s2">&quot;Annual_GWh&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+      <span class="s2">&quot;Annual_GWh&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total model load: </span><span class="si">{</span><span class="n">load_annual</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> GWh&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EC 2025 reference: 25,836 GWh&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+=== LOAD BY BUS (GWh/year) ===
+           city    bus   Annual_GWh
+Load
+GH0 4    Obuasi  GH0 4  4995.296906
+GH0 0     Accra  GH0 0  3477.597356
+GH0 3    Tamale  GH0 3  3209.912645
+GH0 1    Kumasi  GH0 1  2698.012338
+GH0 2  Takoradi  GH0 2  2070.678515
+GH1 0  Akosombo  GH1 0  1576.972947
+GH0 5      Tema  GH0 5  1573.554390
+
+Total model load: 19602 GWh
+EC 2025 reference: 25,836 GWh
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># STEP 3J — Weekly dispatch stack (what runs when?)</span>
+<span class="c1"># Shows hydro vs thermal operating pattern</span>
+<span class="c1"># ============================================================</span>
+
+<span class="c1"># Take one representative week (January, week 1)</span>
+<span class="n">week</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>  <span class="c1"># 42 snapshots = 7 days × 6 per day at 4H</span>
+
+<span class="n">all_dispatch</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">gen_by_carrier</span><span class="p">,</span> <span class="n">stor_by_carrier</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Keep only carriers with meaningful generation</span>
+<span class="n">major</span> <span class="o">=</span> <span class="n">all_dispatch</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">all_dispatch</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">]</span>
+<span class="n">dispatch_week</span> <span class="o">=</span> <span class="n">all_dispatch</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">major</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">week</span><span class="p">]</span>
+
+<span class="n">carrier_plot_colors</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;CCGT&quot;</span><span class="p">:</span>   <span class="s2">&quot;#E53935&quot;</span><span class="p">,</span> <span class="s2">&quot;gas&quot;</span><span class="p">:</span>   <span class="s2">&quot;#E53935&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;oil&quot;</span><span class="p">:</span>    <span class="s2">&quot;#FF6F00&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">:</span> <span class="s2">&quot;#1976D2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ror&quot;</span><span class="p">:</span>    <span class="s2">&quot;#42A5F5&quot;</span><span class="p">,</span> <span class="s2">&quot;solar&quot;</span><span class="p">:</span> <span class="s2">&quot;#FDD835&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;onwind&quot;</span><span class="p">:</span> <span class="s2">&quot;#66BB6A&quot;</span><span class="p">,</span> <span class="s2">&quot;biomass&quot;</span><span class="p">:</span> <span class="s2">&quot;#8D6E63&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">plot_colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">carrier_plot_colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s2">&quot;#90A4AE&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dispatch_week</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">dispatch_week</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">area</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">plot_colors</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Dispatch Stack — Week 1 (January)</span><span class="se">\n</span><span class="s2">Least-cost 2030 optimised: solar + hydro dominant&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Power (MW)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;fig4_dispatch_stack.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_1-network_22_0.png" src="../_images/tutorials_1-network_22_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Tutorials</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2-demand.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">One Week Tutorial Model</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/tutorials/1-network.ipynb.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, Engr Kwaku Duah.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
