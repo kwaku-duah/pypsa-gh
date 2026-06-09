@@ -19,14 +19,14 @@ countries: ["GH"]
 # Can be replaced by country ["NG", "BJ"], continent ["Africa"] or user-specific region, see more at https://pypsa-earth.readthedocs.io/en/latest/user-guide/configuration/#top-level-configuration
 
 enable:
-  retrieve_databundle: true #  Recommended 'true', for the first run. Otherwise data might be missing.
-  retrieve_databundle_sector: true
-  retrieve_cost_data: true # true: retrieves cost data from technology data and saves in resources/costs.csv, false: uses cost data in data/costs.csv
-  retrieve_cutout: true
-  download_osm_data: true # If 'true', OpenStreetMap data will be downloaded for the above given countries
+  retrieve_databundle: false #  Recommended 'true', for the first run. Otherwise data might be missing.
+  retrieve_databundle_sector: false
+  retrieve_cost_data: false # true: retrieves cost data from technology data and saves in resources/costs.csv, false: uses cost data in data/costs.csv
+  retrieve_cutout: false
+  download_osm_data: false # If 'true', OpenStreetMap data will be downloaded for the above given countries
   download_global_buildings: false # If 'true', GlobalMLBuildingFootprints data will be downloaded for the above given countries
-  build_natura_raster: false # If 'true', then an exclusion raster will be build. Otherwise use pregenerated raster.
-  build_cutout: false
+  build_natura_raster: true # If 'true', then an exclusion raster will be build. Otherwise use pregenerated raster.
+  build_cutout: true
   # If "build_cutout" : true, then environmental data is extracted according to `snapshots` date range and `countries`
   # requires cds API key https://cds.climate.copernicus.eu/how-to-api
   # More information https://atlite.readthedocs.io/en/latest/introduction.html#datasets
@@ -893,7 +893,7 @@ solving:
 plotting:
   map:
     figsize: [7, 7]
-    boundaries: [-10.2, 29, 35, 72]
+    boundaries: [-4.0, 2.0, 4.0, 12.0] #for Ghana specific
     p_nom:
       bus_size_factor: 5.e+4
       linewidth_factor: 3.e+3
