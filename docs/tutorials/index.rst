@@ -9,4 +9,5 @@ Tutorials
    4-transitionRE
    5-ruralMicrogrid
    06-northSouthHub
-   07-ScopfPypsa
+   7-ScopfPypsaNetwork
+
