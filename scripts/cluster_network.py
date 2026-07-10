@@ -697,7 +697,7 @@ if __name__ == "__main__":
         from _helpers import mock_snakemake
 
         snakemake = mock_snakemake(
-            "cluster_network", network="elec", simpl="", clusters="20flex"
+            "cluster_network", network="elec", simpl="", clusters="24"
         )
     configure_logging(snakemake)
 
@@ -752,6 +752,8 @@ if __name__ == "__main__":
         n_clusters = int(snakemake.wildcards.clusters)
         aggregate_carriers = None
 
+    aggregation_strategies = snakemake.params.aggregation_strategies
+
     if n_clusters == len(n.buses) and not alternative_clustering:
         # Fast-path if no clustering is necessary
         busmap = n.buses.index.to_series()
@@ -774,8 +776,6 @@ if __name__ == "__main__":
                 x == v
             ).all() or x.isnull().all(), "The `potential` configuration option must agree for all renewable carriers, for now!"
             return v
-
-        aggregation_strategies = snakemake.params.aggregation_strategies
 
         # Aggregation strategies must be set for all columns
         update_config_dictionary(
