@@ -44,7 +44,6 @@ dask-worker-space/
 img/
 logs/
 networks/
-notebooks
 notebooks/
 pypsa/
 resources/
@@ -82,3 +81,9 @@ ghmodel/
 gh-model/
 download_plan.txt
 !data/industry/ammonia_plants.csv
+
+# exclude demand files
+files*
+files.zipdocs/_build/
+
+docs/_build/

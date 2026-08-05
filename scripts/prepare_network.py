@@ -246,16 +246,14 @@ def set_transmission_limit(n, ll_type, factor, costs, lines, links):
 
 
 def average_every_nhours(n, offset):
-
     # Please note that a casefold is applied to the offset during the resampling.
     # This is because the usage of offset where the time interval is in capital
     # letters is deprecated in future versions of pandas.
     # For example 24H is deprecated. Instead, 24h is allowed.
-
     logger.info(f"Resampling the network to {offset}")
     m = n.copy(with_time=False)
 
-    snapshot_weightings = n.snapshot_weightings.resample(offset.casefold()).sum()
+    snapshot_weightings = n.snapshot_weightings.resample(offset).sum()
     m.set_snapshots(snapshot_weightings.index)
     m.snapshot_weightings = snapshot_weightings
 
@@ -263,7 +261,7 @@ def average_every_nhours(n, offset):
         pnl = getattr(m, c.list_name + "_t")
         for k, df in c.pnl.items():
             if not df.empty:
-                pnl[k] = df.resample(offset.casefold()).mean()
+                pnl[k] = df.resample(offset).mean()
 
     return m
 

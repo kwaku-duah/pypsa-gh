@@ -1,3 +1,7 @@
+REM SPDX-FileCopyrightText: 2024 Kwaku Duah
+REM
+REM SPDX-License-Identifier: AGPL-3.0-or-later
+
 @ECHO OFF
 
 pushd %~dp0

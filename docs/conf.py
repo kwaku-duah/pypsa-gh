@@ -1,9 +1,13 @@
+# SPDX-FileCopyrightText: 2024 Kwaku Duah
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # Configuration file for the Sphinx documentation builder.
 
-project = 'PyPSA-GH'
-copyright = '2026, Engr Kwaku Duah'
-author = 'Engr Kwaku Duah'
-release = '0.1.0'
+project = "PyPSA-GH"
+copyright = "2026, Engr Kwaku Duah"
+author = "Engr Kwaku Duah"
+release = "0.1.0"
 
 extensions = [
     "nbsphinx",
@@ -12,11 +16,11 @@ extensions = [
     "sphinx.ext.viewcode",
 ]
 
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 html_theme = "pydata_sphinx_theme"
-html_static_path = ['_static']
+html_static_path = ["_static"]
 html_title = "PyPSA-GH"
 
 html_theme_options = {

@@ -320,7 +320,7 @@ def get_hydro_capacities_annual_hydro_generation(fn, countries, year):
             ["InflowHourlyAvg[GWh]"]
         ].transpose()
         * 1e3
-        * 8760
+        * (8784 if year % 4 == 0 else 8760)
     )  # change unit to MWh/y
     hydro_prod_by_country.index = pd.Index([year])
 
@@ -428,9 +428,10 @@ def rescale_hydro(plants, runoff, normalize_using_yearly, normalization_year):
             )
 
         # average yearly runoff by plant
+        n_hours = runoff.time.shape[0]
         yearlyavg_runoff_by_plant = (
             runoff.rename("runoff").mean("time", skipna=True).to_dataframe()
-        ) * 8760.0
+        ) * n_hours
 
         yearlyavg_runoff_by_plant["country"] = plants.loc[
             yearlyavg_runoff_by_plant.index, "countries"
@@ -453,6 +454,22 @@ def rescale_hydro(plants, runoff, normalize_using_yearly, normalization_year):
 
         # define default_factor. When nan values, used the default 1.0
         default_factor = 1.0
+
+        if not (
+            isnan(tot_common_yearly)
+            or isnan(tot_common_runoff)
+            or tot_common_runoff <= 0.0
+        ):
+            default_factor = tot_common_yearly / tot_common_runoff
+
+        # --- TEMP DEBUG ---
+        print(f"DEBUG tot_common_yearly (target, MWh): {tot_common_yearly}")
+        print(f"DEBUG tot_common_runoff (raw atlite runoff, MWh): {tot_common_runoff}")
+        print(f"DEBUG default_factor: {default_factor}")
+        print(f"DEBUG common_countries: {list(common_countries)}")
+        print(f"DEBUG grouped_runoffs:\n{grouped_runoffs}")
+        # --- END DEBUG ---
+
         if not (
             isnan(tot_common_yearly)
             or isnan(tot_common_runoff)
@@ -619,7 +636,7 @@ if __name__ == "__main__":
         )
 
         resource["plants"] = hydro_ppls.rename(columns={"country": "countries"})[
-            ["lon", "lat", "countries"]
+            ["lon", "lat", "countries", "p_nom"]
         ]
 
         # TODO: possibly revise to account for non-existent hydro powerplants
@@ -644,6 +661,44 @@ if __name__ == "__main__":
 
             if "clip_min_inflow" in config:
                 inflow = inflow.where(inflow >= config["clip_min_inflow"], 0)
+
+            # --- Cap implausible per-plant raw runoff before country-level
+            # normalization, so excess runoff gets redistributed onto plants
+            # that can physically absorb it, rather than being lost entirely
+            # when an oversized-inflow tiny plant gets dropped downstream. ---
+
+            plant_capacity_mw = (
+                resource["plants"]["p_nom"] if "p_nom" in resource["plants"] else None
+            )
+            if plant_capacity_mw is not None:
+                plausible_capacity_factor_ceiling = 0.6
+                hours_in_year = (
+                    8784 if pd.Timestamp(inflow.time.values[0]).is_leap_year else 8760
+                )
+                max_plausible_inflow_mwh_per_plant = (
+                    plant_capacity_mw
+                    * hours_in_year
+                    * plausible_capacity_factor_ceiling
+                )
+                inflow_sum_by_plant = inflow.sum(dim="time").to_pandas()
+                overcapped = inflow_sum_by_plant[
+                    inflow_sum_by_plant
+                    > max_plausible_inflow_mwh_per_plant.reindex(
+                        inflow_sum_by_plant.index
+                    )
+                ]
+                if not overcapped.empty:
+                    logger.warning(
+                        f"Capping implausible per-plant inflow before normalization for: {list(overcapped.index)}"
+                    )
+                    for plant_id in overcapped.index:
+                        scale = (
+                            max_plausible_inflow_mwh_per_plant[plant_id]
+                            / inflow_sum_by_plant[plant_id]
+                        )
+                        inflow.loc[dict(plant=plant_id)] = (
+                            inflow.sel(plant=plant_id) * scale
+                        )
 
             # check if normalization field belongs to the settings and it is not false
             if normalization:

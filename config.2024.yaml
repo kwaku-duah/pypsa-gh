@@ -2,11 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-sphinx
-pydata-sphinx-theme
-nbsphinx
-ipykernel
-pypsa
-pandas
-matplotlib
-numpy
+# Write down config entries differing from config.default.yaml
+
+run: {}

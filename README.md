@@ -20,13 +20,13 @@ BSc Petroleum Engineering | MSc Energy & Sustainable Management<br>
 
 ## PyPSA-GH: High-Resolution Open Energy System Model of Ghana
 
-PyPSA-GH is the **first open-source energy system model dedicated entirely to Ghana**, 
-built on the [PyPSA-Earth](https://github.com/pypsa-meets-earth/pypsa-earth) framework. 
-It models Ghana's electricity system with high spatial and temporal resolution, covering 
+PyPSA-GH is the **first open-source energy system model dedicated entirely to Ghana**,
+built on the [PyPSA-Earth](https://github.com/pypsa-meets-earth/pypsa-earth) framework.
+It models Ghana's electricity system with high spatial and temporal resolution, covering
 renewable energy potential, transmission network topology, hydropower, and grid optimisation.
 
-The model is built entirely from open data using a Snakemake workflow and is fully 
-reproducible. It is designed to support energy planners, researchers, and policymakers 
+The model is built entirely from open data using a Snakemake workflow and is fully
+reproducible. It is designed to support energy planners, researchers, and policymakers
 working on Ghana's energy transition.
 
 ---
@@ -136,8 +136,8 @@ snakemake -call build_shapes --rerun-triggers mtime
 snakemake -call build_osm_network --rerun-triggers mtime
 ```
 
-> **Note:** On all platforms, [Miniforge](https://github.com/conda-forge/miniforge) 
-> is recommended for installing mamba/conda. 
+> **Note:** On all platforms, [Miniforge](https://github.com/conda-forge/miniforge)
+> is recommended for installing mamba/conda.
 > See [installation guide](https://pypsa-earth.readthedocs.io/en/latest/) for details.
 
 ---
@@ -165,7 +165,7 @@ Independent Energy Researcher | Accra, Ghana 🇬🇭
 BSc Petroleum Engineering
 MSc Energy & Sustainable Management
 
-Building the first open Ghana energy model to support evidence-based 
+Building the first open Ghana energy model to support evidence-based
 energy planning and Ghana's net zero transition.
 
 👉 Follow the journey on [LinkedIn](https://www.linkedin.com/in/kwaku-duah-262543202/)
@@ -175,9 +175,9 @@ energy planning and Ghana's net zero transition.
 
 ## Acknowledgements
 
-PyPSA-GH is built on the outstanding work of the 
+PyPSA-GH is built on the outstanding work of the
 [PyPSA meets Earth](https://pypsa-meets-earth.github.io) initiative.
-All core framework credits belong to the original authors and contributors 
+All core framework credits belong to the original authors and contributors
 listed below.
 
 ---
@@ -922,11 +922,11 @@ The documentation is available here: [documentation](https://pypsa-earth.readthe
 
 ## PyPSA-Ghana 🇬🇭
 
-This fork is configured and adapted for **Ghana's energy system** 
+This fork is configured and adapted for **Ghana's energy system**
 by an independent Ghanaian energy researcher.
 
 ### About this adaptation
-This repository extends PyPSA-Earth to model Ghana's electricity 
+This repository extends PyPSA-Earth to model Ghana's electricity
 system with a focus on:
 
 - 🌞 Solar PV potential using ERA5 + atlite land eligibility analysis
@@ -942,17 +942,17 @@ countries: ["GH"]
 ```
 
 ### Author
-ENGR. KWAKU DUAH 
-BSc Petroleum Engineering | MSc Energy & Sustainable Management  
-📍 Accra, Ghana  
-🔗 LinkedIn: https://www.linkedin.com/in/kwaku-duah-262543202/ 
+ENGR. KWAKU DUAH
+BSc Petroleum Engineering | MSc Energy & Sustainable Management
+📍 Accra, Ghana
+🔗 LinkedIn: https://www.linkedin.com/in/kwaku-duah-262543202/
 🐙 GitHub: https://github.com/kwaku-duah/pypsa-ghana/
 
 ### Status
 🔧 Under active development — contributions and feedback welcome
 
 ### Acknowledgements
-Built on the outstanding work of the 
-[PyPSA meets Earth](https://pypsa-meets-earth.github.io) initiative. 
-All core framework credits belong to the original authors and 
+Built on the outstanding work of the
+[PyPSA meets Earth](https://pypsa-meets-earth.github.io) initiative.
+All core framework credits belong to the original authors and
 contributors listed above.

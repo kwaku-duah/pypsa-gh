@@ -66,3 +66,81 @@ path = "pixi.lock"
 precedence = "override"
 SPDX-FileCopyrightText = "The PyPSA-Earth and PyPSA-Eur Authors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+[[annotations]]
+path = "files/**.tif"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "PyPSA-GH Authors"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "files/**.parquet"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "PyPSA-GH Authors"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "*.parquet"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "PyPSA-GH Authors"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "resources/osm/clean/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "PyPSA-GH Authors"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "resources/shapes/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "PyPSA-GH Authors"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "notebooks/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "PyPSA-GH Authors"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = "docs/Makefile"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "The PyPSA-Earth and PyPSA-Eur Authors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+[[annotations]]
+path = "docs/make.bat"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "The PyPSA-Earth and PyPSA-Eur Authors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+[[annotations]]
+path = "docs/conf.py"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "The PyPSA-Earth and PyPSA-Eur Authors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+[[annotations]]
+path = "docs/requirements.txt"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "The PyPSA-Earth and PyPSA-Eur Authors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+[[annotations]]
+path = "docs/index.rst"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "The PyPSA-Earth and PyPSA-Eur Authors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+[[annotations]]
+path = "docs/getting_started/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "The PyPSA-Earth and PyPSA-Eur Authors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+[[annotations]]
+path = "docs/tutorials/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "The PyPSA-Earth and PyPSA-Eur Authors"
+SPDX-License-Identifier = "CC-BY-4.0"

@@ -14,7 +14,6 @@ summary_dir: results/
 
 foresight: overnight
 
-
 countries: ["GH"]
 # Can be replaced by country ["NG", "BJ"], continent ["Africa"] or user-specific region, see more at https://pypsa-earth.readthedocs.io/en/latest/user-guide/configuration/#top-level-configuration
 
@@ -33,12 +32,10 @@ enable:
   progress_bar: true # show progress bar during downloading routines and other long-running tasks
   custom_busmap: false # if true, use "data/custom_busmap_elec_s{simpl}_{clusters}.csv" for the clustering instead of the clustering algorithms
 
-
-
 custom_rules: [] # Default empty [] or link to custom rule file e.g. ["my_folder/my_rules.smk"] that add rules to Snakefile
 
 run:
-  name: "ghana_2030_bau_constrained" # use this to keep track of runs with different settings
+  name: "ghana_2024_baseline_validation" # use this to keep track of runs with different settings
   sector_name: "" # use this to keep track of sector scenario runs
   shared_cutouts: true # set to true to share the default cutout(s) across runs
   # Note: value false requires build_cutout to be enabled
@@ -48,9 +45,9 @@ scenario:
   simpl: [""]
   ll: ["copt"]
   clusters: [10] #gotta run scenario for 20,30 etc too
-  opts: ["Co2L0.607-4hr"] #changed from this  Co2L-1h
+  opts: ["1hr"] #changed from this  Co2L-1h
   planning_horizons: # investment years for myopic and perfect; or costs year for overnight
-  - 2030 # later swap to myopic for 2040, 2050
+  - 2024   # later swap to myopic for 2040, 2050
   sopts:
   - "144h"
   demand:
@@ -91,8 +88,8 @@ cluster_options:
     exclude_carriers: []
     remove_stubs: false
     remove_stubs_across_borders: false
-    p_threshold_drop_isolated: 1 #20[MW] isolated (sub)networks or nodes are being discarded if total mean power is below the specified threshold
-    p_threshold_merge_isolated: 1  #300 [MW] isolated (sub)networks or nodes are being merged into a single isolated bus if total mean power is below the specified threshold
+    p_threshold_drop_isolated: 0 #20[MW] isolated (sub)networks or nodes are being discarded if total mean power is below the specified threshold
+    p_threshold_merge_isolated: 1 #300 [MW] isolated (sub)networks or nodes are being merged into a single isolated bus if total mean power is below the specified threshold
     s_threshold_fetch_isolated: false # [-] a share of the national load for merging an isolated network into a backbone network
   cluster_network:
     algorithm: kmeans
@@ -175,19 +172,18 @@ base_network:
 # https://github.com/pypsa-meets-earth/pypsa-earth/issues/1724
 load_options:
   source: "demcast" # "demcast" or "gegis"
-  weather_year: 2024  # Weather year of the load profile
-  #custom_demcast_path: "data/demand/your_2030_bau.parquet" #config driven but now hardcoding
-  prediction_year:  #unused Valid only if "gegis" used as a source
+  weather_year: 2024 # Weather year of the load profile
+  prediction_year: #unused Valid only if "gegis" used as a source
   scale: 1 # scales all load time-series, i.e. 2 = doubles load
 
 co2:
-  limit: 3.86e+6       # # UNUSED with current opts (estimated for GH) annual cap [tCO2/year]; European default — adjust for your region; active via Co2L wildcard
-  base: 11.29e+6         # co2limit = 0.607 x 11.29e6 = 6.85e6 tCO2     #(Ghana) baseline emissions used for relative reduction targets; European default
+  limit: 3.86e+6 #(estimated for GH) annual cap [tCO2/year]; European default — adjust for your region; active via Co2L wildcard
+  base: 8.3e+6 #(Ghana) baseline emissions used for relative reduction targets; European default
   emission_price: 0. # [currency/tCO2]; active via Ep wildcard
   automatic_emission: # derive co2.limit from historical emission data instead of the value above
     enable: false
-    base_year: 1990  # any year from 1970 to 2018
-  budget:            # year-by-year reduction trajectory; used in all sector-coupled runs
+    base_year: 1990 # any year from 1970 to 2018
+  budget: # year-by-year reduction trajectory; used in all sector-coupled runs
     enable: false
     override_co2opt: true
     base_value: limit # which co2 scalar to scale by year factors: "limit", "base", "absolute", or a float [tCO2/a]
@@ -201,7 +197,7 @@ co2:
       2050: 0.1
 
 electricity:
-  base_voltage: 330.   # matches Ghana's actual max transmission voltage
+  base_voltage: 330. # matches Ghana's actual max transmission voltage
   voltages: [34.5, 69., 161., 225., 330.] # replaced this for Ghana
   agg_p_nom_limits: # enables to set country-wise maximum and minimum generation capacities for generators (e.g. renewables, nuclear, and geothermal)
     file: data/agg_p_nom_minmax.csv # path to csv file containing country-wise generation capacity limits
@@ -219,14 +215,14 @@ electricity:
     H2: 168
 
   extendable_carriers:
-      # Note: For landlocked countries (e.g., Jordan, Austria, Switzerland), remove 'offwind-ac' and 'offwind-dc'
-          # from the Generator list below, as these offshore wind technologies require coastline access.
-    Generator: [solar, onwind, offwind-ac, offwind-dc, OCGT] #solar, onwind, offwind-ac, offwind-dc, OCGT
-    StorageUnit: [battery] # battery, H2
+    # Note: For landlocked countries (e.g., Jordan, Austria, Switzerland), remove 'offwind-ac' and 'offwind-dc'
+    # from the Generator list below, as these offshore wind technologies require coastline access.
+    Generator: [] #solar, onwind, offwind-ac, offwind-dc, OCGT
+    StorageUnit: [] # battery, H2
     Store: [] # battery, H2
     Link: [] # H2 pipeline
 
-  powerplants_filter: (DateOut >= 2030 or DateOut != DateOut) and (DateIn <= 2030 or DateIn != DateIn)
+  powerplants_filter: (DateOut >= 2024 or DateOut != DateOut) and (DateIn <= 2024 or DateIn != DateIn)
   custom_powerplants: replace #  "false" use only powerplantmatching (ppm) data, "merge" combines ppm and custom powerplants, "replace" use only custom powerplants
 
   conventional_carriers: [nuclear, oil, OCGT, CCGT, coal, lignite, geothermal, biomass]
@@ -234,7 +230,7 @@ electricity:
 
   estimate_renewable_capacities:
     stats: false # changed from "irena" False, = greenfield expansion, 'irena' uses IRENA stats to add expansion limits
-    year: 2024 # was 2023 Reference year, available years for IRENA stats are 2000 to 2023
+    year: 2023 # Reference year, available years for IRENA stats are 2000 to 2023
     p_nom_min: 1 # any float, scales the minimum expansion acquired from stats, i.e. 110% of <years>'s capacities => p_nom_min: 1.1
     p_nom_max: false # sets the expansion constraint, False to deactivate this option and use estimated renewable potentials determine by the workflow, float scales the p_nom_min factor accordingly
     technology_mapping:
@@ -243,12 +239,12 @@ electricity:
       Onshore: [onwind]
       PV: [solar]
 
-lines:  #replaced this for Ghana
+lines: #replaced this for Ghana
   ac_types:
-    34.5: "94-AL1/15-ST1A 20.0"           # Sub-transmission / distribution approximation
-    69.: "94-AL1/15-ST1A 20.0"            # Matches standard PyPSA 63kV/66kV defaults
-    161.: "243-AL1/39-ST1A 20.0"          # Reuses PyPSA-Earth 132kV standard type
-    225.: "Al/St 240/40 2-bundle 220.0"   # Reuses 220kV bundled entry approximation
+    34.5: "94-AL1/15-ST1A 20.0" # Sub-transmission / distribution approximation
+    69.: "94-AL1/15-ST1A 20.0" # Matches standard PyPSA 63kV/66kV defaults
+    161.: "243-AL1/39-ST1A 20.0" # Reuses PyPSA-Earth 132kV standard type
+    225.: "Al/St 240/40 2-bundle 220.0" # Reuses 220kV bundled entry approximation
     330.: "Al/St 240/40 3-bundle 300.0"
   dc_types:
     500.: "HVDC XLPE 1000"
@@ -281,12 +277,12 @@ atlite:
       # The cutout spatial extent [x,y] is automatically set by country selection. See `countries:` option above and 'build_cutout.py'.
       # x: [-12., 35.]  # set cutout range manual, instead of automatic by boundaries of country
       # y: [33., 72]    # manual set cutout range
-    cutout-2024-era5-ghana-025:          # <- ADD THIS
+    cutout-2024-era5-ghana-025: #wind cutout for Ghana, 0.25 degree resolution
       module: era5
       dx: 0.25
       dy: 0.25
     cutout-2024-sarah-ghana:
-      module: [sarah, era5]     #Ghana sarah for solar irradiance, era5 fills in wind/temp/pressure sarah doesn't cover
+      module: [sarah, era5] #Ghana sarah for solar irradiance, era5 fills in wind/temp/pressure sarah doesn't cover
       dx: 0.3
       dy: 0.3
       sarah_dir: /data/PyPSA-GH/resources/sarah3
@@ -297,7 +293,7 @@ renewable:
     cutout: cutout-2024-era5-ghana-025
     resource:
       method: wind
-      turbine: NREL_ReferenceTurbine_2020ATB_4MW
+      turbine: NREL_ReferenceTurbine_2020ATB_4MW #Vestas_V112_3MW replaced, 9.8 m/s rated, (5.83 m/s Ghana's data)
     capacity_per_sqkm: 3 # conservative, ScholzPhd Tab 4.3.1: 10MW/km^2
     # correction_factor: 0.93
     copernicus:
@@ -371,7 +367,7 @@ renewable:
     # Pietzcker, Robert Carl, et al. "Using the sun to decarbonize the power
     # sector: The economic potential of photovoltaics and concentrating solar
     # power." Applied Energy 135 (2014): 704-720.
-    correction_factor: 1.0 # GHANA was: 0.854337 — that value was calibrated against Pietzcker et al. full-load-hours using ERA5-derived irradiance; carrying it over to SARAH's different raw magnitude isn't valid, reset and re-derive later if needed
+    correction_factor: 1 #0.6221 # GHANA was: 0.854337 — that value was calibrated against Pietzcker et al. full-load-hours using ERA5-derived irradiance; carrying it over to SARAH's different raw magnitude isn't valid, reset and re-derive later if needed
     copernicus:
       grid_codes: [20, 30, 40, 50, 60, 90, 100]
     natura: true
@@ -394,10 +390,10 @@ renewable:
     clip_min_inflow: 1.0
     extendable: true
     normalization:
-      method: irena # 'hydro_capacities' to rescale country hydro production by using hydro_capacities, 'eia' or 'irena' to rescale by eia or irena data, false for no rescaling
-     # use the weather year for weather-dominated variations (installed capacity is changing slowly)
-     # the technology-year for policy-determined changes (installed capacity is changing quickly)
-      year: 2023 # (optional) year of statistics used to rescale the runoff time series. When not provided, the cutout weather year is used
+      method: hydro_capacities # irena 'hydro_capacities' to rescale country hydro production by using hydro_capacities, 'eia' or 'irena' to rescale by eia or irena data, false for no rescaling
+      # use the weather year for weather-dominated variations (installed capacity is changing slowly)
+      # the technology-year for policy-determined changes (installed capacity is changing quickly)
+      year: 2024 # (optional) year of statistics used to rescale the runoff time series. When not provided, the cutout weather year is used
     multiplier: 1.0 # multiplier applied after the normalization of the hydro production; default 1.0
     hydro_min_inflow_pu: 1.0 # [hour] A threshold of energy to power ratio to classify hydro powerplants as reservoirs in case type is missed
   csp:
@@ -424,9 +420,9 @@ renewable:
 # TODO: Needs to be adjusted for Africa.
 # Costs Configuration
 costs:
-  year: 2030 # cost file selection, i.e. costs_2030.csv in this case; reference year for costs is always 2020
+  year: 2024 # cost file selection, i.e. costs_2030.csv in this case; reference year for costs is always 2020
   technology_data_version: v0.13.2
-  discountrate: [0.12]  #, 0.086, 0.111]
+  discountrate: [0.12] #, 0.086, 0.111]
   country_specific_data: "" # (optional) Reference to the desired technology-data directory for techno-economic input data; Only "" and "US" supported, for other values check the technology-data output directory
   # Only needed if "US" is selected as `country_specific_data`, otherwise ignore
   cost_scenario: "moderate" # only used if `country_specific_data: "US"`; can be "moderate", "advanced" or "conservative"
@@ -436,7 +432,7 @@ costs:
   default_exchange_rate: 0.7532 # previously USD2013_to_EUR2013; should be sufficient as current data from 'technology-data` are either in EUR or USD; [EUR/USD] ECB: https://www.ecb.europa.eu/stats/exchange/eurofxref/html/eurofxref-graph-usd.en.html
   future_exchange_rate_strategy: "reference" # reference uses the exchange rate from `reference_year` for all conversions, ensuring all costs are expressed in the same currency and year; "latest" uses the yearly average of the latest available exchange rates for the selected `output_currency`; "custom" allows to specify a `custom_future_exchange_rate` below
   custom_future_exchange_rate: None # if `future_exchange_rate_strategy: "custom"`, please insert here the desired output_currency-to-EUR exchange rate
-  rooftop_share: 0 # changed to 0 for Gh since is not part of grid now, based on the potentials, assuming (0.1 kW/m2 and 10 m2/person)
+  rooftop_share: 0.14 # based on the potentials, assuming (0.1 kW/m2 and 10 m2/person)
   fill_values:
     FOM: 0
     VOM: 0
@@ -468,7 +464,6 @@ costs:
   #   CCGT: 25.0
   # efficiency: # per unit
   #   CCGT: 0.58
-
 
 monte_carlo:
   # Description: Specify Monte Carlo sampling options for uncertainty analysis.
@@ -517,14 +512,12 @@ policy_config:
     path_to_ref: "" # Path to the reference case network for additionality calculation, relevant only if additionality is _true_ and is_reference is _false_
     re_country_load: false # Set to "True" to force the RE electricity to be equal to the electricity required for hydrogen export and the country electricity load. "False" excludes the country electricity load from the constraint.
 
-
 demand_data:
   update_data: true # if true, the workflow downloads the energy balances data saved in data/demand/unsd/data again. Turn on for the first run.
   base_year: 2019
 
   other_industries: false # Whether or not to include industries that are not specified. some countries have has exaggerated numbers, check carefully.
   aluminium_year: 2019 # Year of the aluminium demand data specified in `data/AL_production.csv`
-
 
 fossil_reserves:
   oil: 100 #TWh Maybe redundant
@@ -624,10 +617,10 @@ sector:
           50: 2500 # urban
           80: 200 # protected areas / water bodies
           100: 200 # natural protected areas
-      rho_min: 5.0         # Minimum hydrogen density in kg/m³ (at low pressure, e.g. ~30 bar)
-      rho_max: 42.0        # Maximum hydrogen density in kg/m³ (at high pressure, e.g. ~200–250 bar)
-      theta_safety: 0.8    # Usable working gas fraction (portion of H₂ that can actually be withdrawn)
-      lhv_h2: 120          # Lower Heating Value (LHV) of hydrogen in MJ/kg (energy content per kg H₂)
+      rho_min: 5.0 # Minimum hydrogen density in kg/m³ (at low pressure, e.g. ~30 bar)
+      rho_max: 42.0 # Maximum hydrogen density in kg/m³ (at high pressure, e.g. ~200–250 bar)
+      theta_safety: 0.8 # Usable working gas fraction (portion of H₂ that can actually be withdrawn)
+      lhv_h2: 120 # Lower Heating Value (LHV) of hydrogen in MJ/kg (energy content per kg H₂)
       locations:
       - onshore
       - offshore
@@ -651,9 +644,9 @@ sector:
     enable: true
     spatial_ammonia: true
     production_year: 2019 # 2019 - 2023 are available
-    gas_MWh_per_tNH3: 7.81   # MWh natural gas per tNH3 (SMR eff.=0.76, HB H2-input=1.1484 MWh_H2/MWh_NH3, NH3 LHV=5.167 MWh/t)
-    elec_MWh_per_tNH3: 1.278  # MWh electricity per tNH3 (HB elec-input=0.2473 MWh_el/MWh_NH3, NH3 LHV=5.167 MWh/t)
-    co2_t_per_tNH3: 1.547    # tCO2 per tNH3 (gas CO2 intensity=0.198 tCO2/MWh_gas x 7.81 MWh_gas/tNH3)
+    gas_MWh_per_tNH3: 7.81 # MWh natural gas per tNH3 (SMR eff.=0.76, HB H2-input=1.1484 MWh_H2/MWh_NH3, NH3 LHV=5.167 MWh/t)
+    elec_MWh_per_tNH3: 1.278 # MWh electricity per tNH3 (HB elec-input=0.2473 MWh_el/MWh_NH3, NH3 LHV=5.167 MWh/t)
+    co2_t_per_tNH3: 1.547 # tCO2 per tNH3 (gas CO2 intensity=0.198 tCO2/MWh_gas x 7.81 MWh_gas/tNH3)
 
   # ------------------- HEAT SECTOR -------------------
 
@@ -798,7 +791,7 @@ sector:
       200: 0.41
       450: 0.49
       2300: 0.66
-     # maximum distance [km] to allocate a building within the nearest bus shapes
+      # maximum distance [km] to allocate a building within the nearest bus shapes
     tolerance: 100
 
   home_battery: true # adds home batteries to low voltage buses ((only work if electricity_distribution_grid: true)
@@ -882,7 +875,7 @@ solving:
       # refer to https://ergo-code.github.io/HiGHS/dev/options/definitions/
       threads: 4
       solver: "ipm"
-      run_crossover: "off"
+      run_crossover: "on"
       small_matrix_value: 1e-6
       large_matrix_value: 1e15
       primal_feasibility_tolerance: 1e-6
@@ -933,7 +926,6 @@ solving:
     glpk-default: {} # Used in CI
 
   mem: 30000 #memory in MB; 20 GB enough for 50+B+I+H2; 100 GB for 181+B+I+H2
-
 
 plotting:
   map:
@@ -1156,7 +1148,6 @@ plotting:
     solid biomass for industry: "#654321"
     rail transport oil: "#44DD33"
     low voltage: "y"
-
 
   nice_names:
     OCGT: Open-Cycle Gas
