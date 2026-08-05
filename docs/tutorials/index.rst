@@ -13,6 +13,5 @@ Tutorials
    4-transitionRE
    5-ruralMicrogrid
    06-northSouthHub
-   7-ScopfPypsaNetwork
-   08 - Baseline-Ghana-2024
-   09 - Ghana-2030-BAU
+   07-ScopfPypsa
+   08-ScopfPypsaNetwork

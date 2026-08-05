@@ -15,6 +15,12 @@ PyPSA-GH is a power systems model for Ghana built with PyPSA.
 
 .. toctree::
    :maxdepth: 1
+   :caption: Research
+
+   research/index
+
+.. toctree::
+   :maxdepth: 1
    :caption: Tutorials
 
    tutorials/index
