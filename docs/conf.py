@@ -33,6 +33,7 @@ html_theme_options = {
             "icon": "fa-brands fa-github",
         }
     ],
+    "show_toc_level": 0,
 }
 
 nbsphinx_execute = "never"
