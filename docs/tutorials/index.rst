@@ -12,6 +12,6 @@ Tutorials
    3-leastCost
    4-transitionRE
    5-ruralMicrogrid
-   06-northSouthHub
-   07-ScopfPypsa
-   08-ScopfPypsaNetwork
+   6-northSouthHub
+   7-ScopfPypsa
+   8-ScopfPypsaNetwork
